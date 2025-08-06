@@ -21,7 +21,6 @@ import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class YogaCourseListActivity : AppCompatActivity(), YogaCourseAdapter.OnCourseActionClickListener {
-
     private val viewModel: YogaCourseViewModel by viewModels()
     private lateinit var yogaCourseAdapter: YogaCourseAdapter 
     private lateinit var recyclerViewCourses: RecyclerView 
@@ -40,7 +39,7 @@ class YogaCourseListActivity : AppCompatActivity(), YogaCourseAdapter.OnCourseAc
 
         val fabAddCourse: FloatingActionButton = findViewById(R.id.fabAddCourse)
         fabAddCourse.setOnClickListener {
-            val intent = Intent(this, AddYogaCourseActivity::class.java)
+            val intent = Intent(this, AddEditYogaCourseActivity::class.java)
             startActivity(intent)
         }
 
@@ -60,8 +59,8 @@ class YogaCourseListActivity : AppCompatActivity(), YogaCourseAdapter.OnCourseAc
     }
 
     override fun onEditCourseClicked(course: YogaCourseEntity) {
-        val intent = Intent(this, AddYogaCourseActivity::class.java).apply {
-            putExtra(AddYogaCourseActivity.EXTRA_COURSE_ID, course.id)
+        val intent = Intent(this, AddEditYogaCourseActivity::class.java).apply {
+            putExtra(AddEditYogaCourseActivity.EXTRA_COURSE_ID, course.id)
         }
         startActivity(intent)
     }
@@ -75,5 +74,17 @@ class YogaCourseListActivity : AppCompatActivity(), YogaCourseAdapter.OnCourseAc
             }
             .setNegativeButton("No", null)
             .show()
+    }
+
+    // Implement the new item click listener method
+    override fun onCourseClicked(course: YogaCourseEntity) {
+        val intent = Intent(this, YogaClassListActivity::class.java).apply {
+            putExtra(YogaClassListActivity.EXTRA_COURSE_ID, course.id)
+            // IMPORTANT: You need to pass the actual day of the week string that matches what YogaClassListActivity expects.
+            // YogaCourseEntity.dayOfWeek is a String. Ensure its format (e.g., "MONDAY", "Tuesday") is consistent
+            // with what YogaClassListActivity and AddEditYogaClassActivity expect for validation.
+            putExtra(YogaClassListActivity.EXTRA_COURSE_DAY_OF_WEEK, course.dayOfWeek)
+        }
+        startActivity(intent)
     }
 }

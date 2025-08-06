@@ -11,6 +11,8 @@
     <string name="label_capacity">Capacity: %d</string>
     <string name="label_price">Price: %s</string>
     <string name="course_day_time_format">%1$s - %2$s</string>
+    <string name="view_classes_button">View Classes</string>
+    <string name="add_new_yoga_class">Add new yoga class</string>
 
     <string-array name="days_of_week_array">
         <item>Monday</item>

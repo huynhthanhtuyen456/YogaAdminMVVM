@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface YogaScheduleDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertInstance(classInstance: YogaScheduleDao): Long
+    suspend fun insertInstance(classInstance: YogaScheduleDao): Int
 
     @Update
     suspend fun updateInstance(classInstance: YogaScheduleDao)

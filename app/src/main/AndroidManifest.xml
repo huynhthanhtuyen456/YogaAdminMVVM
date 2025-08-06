@@ -17,9 +17,16 @@
             android:exported="false"
             android:theme="@style/Theme.YogaAdminMVVM" />
         <activity
-            android:name=".ui.activities.AddYogaCourseActivity"
+            android:name=".ui.activities.AddEditYogaCourseActivity"
             android:exported="false"
             android:label="Add New Yoga Course" />
+        <activity
+            android:name=".ui.activities.YogaClassListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activities.AddEditYogaClassActivity"
+            android:exported="false"
+            android:label="Add New Yoga Class" />
         <activity
             android:name=".ui.activities.MainActivity"
             android:exported="true">

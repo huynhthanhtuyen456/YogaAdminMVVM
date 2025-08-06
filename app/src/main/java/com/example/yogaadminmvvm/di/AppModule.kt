@@ -2,7 +2,10 @@ package com.example.yogaadminmvvm.di
 
 import android.content.Context
 import com.example.yogaadminmvvm.data.local.AppDatabase
+import com.example.yogaadminmvvm.data.local.dao.YogaClassDao
 import com.example.yogaadminmvvm.data.local.dao.YogaCourseDao
+import com.example.yogaadminmvvm.data.repository.YogaClassRepository
+import com.example.yogaadminmvvm.data.repository.YogaClassRepositoryImpl
 import com.example.yogaadminmvvm.data.repository.YogaCourseRepository
 import com.example.yogaadminmvvm.data.repository.YogaCourseRepositoryImpl
 import dagger.Module
@@ -30,7 +33,19 @@ object AppModule {
 
     @Provides
     @Singleton
+    fun provideYogaClassDao(appDatabase: AppDatabase): YogaClassDao {
+        return appDatabase.yogaClassDao()
+    }
+
+    @Provides
+    @Singleton
     fun provideYogaCourseRepository(yogaCourseDao: YogaCourseDao): YogaCourseRepository {
         return YogaCourseRepositoryImpl(yogaCourseDao)
+    }
+
+    @Provides
+    @Singleton
+    fun provideYogaClassRepository(yogaClassDao: YogaClassDao): YogaClassRepository {
+        return YogaClassRepositoryImpl(yogaClassDao)
     }
 }

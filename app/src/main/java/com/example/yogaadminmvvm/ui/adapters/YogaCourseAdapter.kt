@@ -3,6 +3,7 @@ package com.example.yogaadminmvvm.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+// import android.widget.Button // Button no longer needed for item click navigation
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -20,6 +21,8 @@ class YogaCourseAdapter(
     interface OnCourseActionClickListener {
         fun onEditCourseClicked(course: YogaCourseEntity)
         fun onDeleteCourseClicked(course: YogaCourseEntity)
+        fun onCourseClicked(course: YogaCourseEntity) // For navigating to class list
+        // fun onViewClassesClicked(course: YogaCourseEntity) // Removed as item click handles it
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YogaCourseViewHolder {
@@ -42,6 +45,7 @@ class YogaCourseAdapter(
         private val textViewCoursePrice: TextView = itemView.findViewById(R.id.textViewCoursePrice)
         private val imageButtonEditCourse: ImageButton = itemView.findViewById(R.id.imageButtonEditCourse)
         private val imageButtonDeleteCourse: ImageButton = itemView.findViewById(R.id.imageButtonDeleteCourse)
+        // private val buttonViewClasses: Button = itemView.findViewById(R.id.buttonViewClasses) // Button removed
 
         fun bind(course: YogaCourseEntity) {
             val context = itemView.context
@@ -63,6 +67,15 @@ class YogaCourseAdapter(
             imageButtonDeleteCourse.setOnClickListener {
                 listener.onDeleteCourseClicked(course)
             }
+
+            // Set item click listener for navigation
+            itemView.setOnClickListener {
+                listener.onCourseClicked(course)
+            }
+
+            // buttonViewClasses.setOnClickListener { // Listener for button removed
+            //     listener.onViewClassesClicked(course)
+            // }
         }
     }
 

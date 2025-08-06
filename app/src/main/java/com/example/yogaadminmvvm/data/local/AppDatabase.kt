@@ -5,15 +5,18 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.yogaadminmvvm.data.local.dao.YogaClassDao
 import com.example.yogaadminmvvm.data.local.dao.YogaCourseDao
+import com.example.yogaadminmvvm.data.local.entities.YogaClassEntity
 import com.example.yogaadminmvvm.data.local.entities.YogaCourseEntity
 import com.example.yogaadminmvvm.utils.Converters // Assuming your Converters class is here
 
-@Database(entities = [YogaCourseEntity::class], version = 1, exportSchema = false)
+@Database(entities = [YogaCourseEntity::class, YogaClassEntity::class], version = 2, exportSchema = false)
 @TypeConverters(Converters::class) // Added this to handle YogaType
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun yogaCourseDao(): YogaCourseDao
+    abstract fun yogaClassDao(): YogaClassDao
 
     companion object {
         @Volatile

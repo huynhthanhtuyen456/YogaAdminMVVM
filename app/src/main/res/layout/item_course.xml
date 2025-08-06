@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="?attr/selectableItemBackground"
     android:padding="16dp">
 
     <LinearLayout
@@ -69,5 +72,15 @@
         android:layout_height="wrap_content"
         android:textAppearance="?attr/textAppearanceCaption"
         tools:text="Price: $20" />
+
+    <!-- Button removed as the whole item is clickable now
+    <Button
+        android:id="@+id/buttonViewClasses"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/view_classes_button"
+        android:layout_marginTop="8dp"
+        style="?attr/materialButtonOutlinedStyle" />
+    -->
 
 </LinearLayout>

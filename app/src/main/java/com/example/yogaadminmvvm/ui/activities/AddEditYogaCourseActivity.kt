@@ -17,8 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
-class AddYogaCourseActivity : AppCompatActivity() {
-
+class AddEditYogaCourseActivity : AppCompatActivity() {
     private lateinit var dayOfWeekSpinnerView: Spinner
     private lateinit var timeSpinnerView: Spinner
     private lateinit var capacityEditText: TextInputEditText
