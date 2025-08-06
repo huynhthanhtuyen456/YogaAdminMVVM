@@ -35,13 +35,30 @@
             android:layout_marginBottom="8dp"
             tools:text="Classes for Morning Hatha" />
 
-        <androidx.appcompat.widget.SearchView
-            android:id="@+id/searchViewTeacher"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            app:iconifiedByDefault="false"
-            app:queryHint="Search by teacher name..." />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchViewTeacher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:iconifiedByDefault="false"
+                app:queryHint="Search by teacher name..." />
+
+            <ImageButton
+                android:id="@+id/buttonAdvancedSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_menu_search"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:contentDescription="Advanced Search"
+                android:padding="8dp"/>
+        </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewYogaClasses"

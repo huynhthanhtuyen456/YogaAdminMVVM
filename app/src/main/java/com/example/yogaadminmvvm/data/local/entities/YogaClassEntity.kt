@@ -20,6 +20,7 @@ data class YogaClassEntity(
     val id: Int = 0,
     val courseId: Int,          // Foreign key to YogaCourse
     val date: String,           // e.g., "2023-10-17" (yyyy-MM-dd format)
+    val dayOfWeek: String, // e.g., "Monday", "Tuesday"
     val teacherName: String,
     val comments: String? = null
     // You might add isSynced: Boolean = false for cloud sync later

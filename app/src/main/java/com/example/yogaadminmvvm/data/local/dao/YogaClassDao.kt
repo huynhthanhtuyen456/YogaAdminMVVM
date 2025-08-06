@@ -34,6 +34,12 @@ interface YogaClassDao {
     @Query("SELECT * FROM yoga_classes WHERE date = :dateString ORDER BY teacherName ASC")
     fun searchInstancesByDate(dateString: String): Flow<List<YogaClassEntity>>
 
+    @Query("SELECT * FROM yoga_classes WHERE dayOfWeek = :dayOfWeekString ORDER BY teacherName ASC")
+    fun searchInstancesByDayOfWeek(dayOfWeekString: String): Flow<List<YogaClassEntity>>
+
+    @Query("SELECT * FROM yoga_classes WHERE date = :dateString AND dayOfWeek = :dayOfWeekString ORDER BY teacherName ASC")
+    fun searchInstancesByDateAndDayOfWeek(dateString: String, dayOfWeekString: String): Flow<List<YogaClassEntity>>
+
     // Could be useful for cleaning up instances if a course is programmatically deleted in a way that doesn't trigger CASCADE
     @Query("DELETE FROM yoga_classes WHERE courseId = :courseId")
     suspend fun deleteInstancesForCourse(courseId: Int) // Return type should be Unit (or nothing) for delete queries that don't return data

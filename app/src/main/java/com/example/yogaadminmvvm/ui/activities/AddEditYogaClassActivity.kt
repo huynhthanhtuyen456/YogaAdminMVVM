@@ -130,6 +130,7 @@ class AddEditYogaClassActivity : AppCompatActivity() {
             courseId = currentCourseId,
             date = date,
             teacherName = teacherName,
+            dayOfWeek = courseDayOfWeekString!!,
             comments = comments.ifEmpty { null }
         )
 

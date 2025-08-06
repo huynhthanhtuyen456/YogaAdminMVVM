@@ -11,7 +11,7 @@ import com.example.yogaadminmvvm.data.local.entities.YogaClassEntity
 import com.example.yogaadminmvvm.data.local.entities.YogaCourseEntity
 import com.example.yogaadminmvvm.utils.Converters // Assuming your Converters class is here
 
-@Database(entities = [YogaCourseEntity::class, YogaClassEntity::class], version = 2, exportSchema = false)
+@Database(entities = [YogaCourseEntity::class, YogaClassEntity::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class) // Added this to handle YogaType
 abstract class AppDatabase : RoomDatabase() {
 

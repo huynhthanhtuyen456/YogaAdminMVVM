@@ -32,4 +32,17 @@ class YogaClassRepositoryImpl @Inject constructor(
     override fun getClassById(classId: Int): Flow<YogaClassEntity?> {
         return yogaClassDao.getInstanceById(classId)
     }
+
+    // Advanced Search Methods
+    override fun searchClassesByDate(date: String): Flow<List<YogaClassEntity>> {
+        return yogaClassDao.searchInstancesByDate(date)
+    }
+
+    override fun searchClassesByDayOfWeek(dayOfWeek: String): Flow<List<YogaClassEntity>> {
+        return yogaClassDao.searchInstancesByDayOfWeek(dayOfWeek)
+    }
+
+    override fun searchClassesByDateAndDayOfWeek(date: String, dayOfWeek: String): Flow<List<YogaClassEntity>> {
+        return yogaClassDao.searchInstancesByDateAndDayOfWeek(date, dayOfWeek)
+    }
 }
