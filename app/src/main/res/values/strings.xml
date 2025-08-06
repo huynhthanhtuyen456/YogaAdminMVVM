@@ -8,6 +8,9 @@
     <string name="previous">Previous</string>
     <string name="ic_edit_description">Edit Course</string>
     <string name="ic_delete_description">Delete Course</string>
+    <string name="label_capacity">Capacity: %d</string>
+    <string name="label_price">Price: %s</string>
+    <string name="course_day_time_format">%1$s - %2$s</string>
 
     <string-array name="days_of_week_array">
         <item>Monday</item>

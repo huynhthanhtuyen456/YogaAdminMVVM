@@ -44,14 +44,16 @@ class YogaCourseAdapter(
         private val imageButtonDeleteCourse: ImageButton = itemView.findViewById(R.id.imageButtonDeleteCourse)
 
         fun bind(course: YogaCourseEntity) {
-            textViewCourseDayTime.text = "${course.dayOfWeek} - ${course.time}"
+            val context = itemView.context
+            textViewCourseDayTime.text = context.getString(R.string.course_day_time_format, course.dayOfWeek, course.time)
             textViewCourseType.text = course.type.name // Or course.type.displayName if you have it
-            textViewCourseCapacity.text = "Capacity: ${course.capacity}"
+            
+            textViewCourseCapacity.text = context.getString(R.string.label_capacity, course.capacity)
             try {
                 val currencyFormatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
-                textViewCoursePrice.text = "Price: ${currencyFormatter.format(course.price)}"
+                textViewCoursePrice.text = context.getString(R.string.label_price, currencyFormatter.format(course.price))
             } catch (e: Exception) {
-                textViewCoursePrice.text = "Price: ${course.price}"
+                textViewCoursePrice.text = context.getString(R.string.label_price, course.price.toString())
             }
 
             imageButtonEditCourse.setOnClickListener {
