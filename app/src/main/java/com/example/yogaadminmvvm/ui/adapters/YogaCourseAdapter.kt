@@ -3,6 +3,7 @@ package com.example.yogaadminmvvm.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -12,11 +13,18 @@ import com.example.yogaadminmvvm.data.local.entities.YogaCourseEntity
 import java.text.NumberFormat
 import java.util.Locale
 
-class YogaCourseAdapter : ListAdapter<YogaCourseEntity, YogaCourseAdapter.YogaCourseViewHolder>(YogaCourseDiffCallback()) {
+class YogaCourseAdapter(
+    private val onCourseActionClickListener: OnCourseActionClickListener
+) : ListAdapter<YogaCourseEntity, YogaCourseAdapter.YogaCourseViewHolder>(YogaCourseDiffCallback()) {
+
+    interface OnCourseActionClickListener {
+        fun onEditCourseClicked(course: YogaCourseEntity)
+        fun onDeleteCourseClicked(course: YogaCourseEntity)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): YogaCourseViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.item_course, parent, false)
-        return YogaCourseViewHolder(itemView)
+        return YogaCourseViewHolder(itemView, onCourseActionClickListener)
     }
 
     override fun onBindViewHolder(holder: YogaCourseViewHolder, position: Int) {
@@ -24,26 +32,34 @@ class YogaCourseAdapter : ListAdapter<YogaCourseEntity, YogaCourseAdapter.YogaCo
         holder.bind(currentCourse)
     }
 
-    class YogaCourseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    class YogaCourseViewHolder(
+        itemView: View,
+        private val listener: OnCourseActionClickListener
+        ) : RecyclerView.ViewHolder(itemView) {
         private val textViewCourseDayTime: TextView = itemView.findViewById(R.id.textViewCourseDayTime)
         private val textViewCourseType: TextView = itemView.findViewById(R.id.textViewCourseType)
         private val textViewCourseCapacity: TextView = itemView.findViewById(R.id.textViewCourseCapacity)
         private val textViewCoursePrice: TextView = itemView.findViewById(R.id.textViewCoursePrice)
-        // You can add a NumberFormat instance for currency formatting if desired
-        // private val currencyFormatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
-
+        private val imageButtonEditCourse: ImageButton = itemView.findViewById(R.id.imageButtonEditCourse)
+        private val imageButtonDeleteCourse: ImageButton = itemView.findViewById(R.id.imageButtonDeleteCourse)
 
         fun bind(course: YogaCourseEntity) {
             textViewCourseDayTime.text = "${course.dayOfWeek} - ${course.time}"
             textViewCourseType.text = course.type.name // Or course.type.displayName if you have it
             textViewCourseCapacity.text = "Capacity: ${course.capacity}"
-            // Example of formatting price as currency, ensure course.price is Double
-             try {
+            try {
                 val currencyFormatter = NumberFormat.getCurrencyInstance(Locale.getDefault())
                 textViewCoursePrice.text = "Price: ${currencyFormatter.format(course.price)}"
             } catch (e: Exception) {
-                // Fallback or log error if formatting fails
                 textViewCoursePrice.text = "Price: ${course.price}"
+            }
+
+            imageButtonEditCourse.setOnClickListener {
+                listener.onEditCourseClicked(course)
+            }
+
+            imageButtonDeleteCourse.setOnClickListener {
+                listener.onDeleteCourseClicked(course)
             }
         }
     }
