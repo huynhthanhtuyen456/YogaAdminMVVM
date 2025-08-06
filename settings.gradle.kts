@@ -21,4 +21,3 @@ dependencyResolutionManagement {
 
 rootProject.name = "YogaAdminMVVM"
 include(":app")
- 
