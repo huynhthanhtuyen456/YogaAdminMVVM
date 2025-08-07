@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
     id("com.google.dagger.hilt.android")
+    id("com.google.gms.google-services") // Added Google Services plugin
 }
 
 android {
@@ -41,6 +42,11 @@ android {
 }
 
 dependencies {
+    // Firebase BoM
+    implementation(platform("com.google.firebase:firebase-bom:33.1.1")) // Added Firebase BoM
+    // Firebase Firestore
+    implementation("com.google.firebase:firebase-firestore-ktx") // Added Firestore KTX
+
     // Room components
     val roomVersion = "2.6.1"
     implementation("androidx.room:room-runtime:$roomVersion")

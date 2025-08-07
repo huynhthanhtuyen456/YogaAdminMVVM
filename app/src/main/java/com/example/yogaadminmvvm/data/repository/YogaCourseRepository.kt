@@ -18,5 +18,7 @@ interface YogaCourseRepository {
     suspend fun clearAllCourses()
 
     fun searchByDayOfWeek(day: String): Flow<List<YogaCourseEntity>>
+
+    suspend fun uploadCourseToFirebase(course: YogaCourseEntity) // New method
 }
 
