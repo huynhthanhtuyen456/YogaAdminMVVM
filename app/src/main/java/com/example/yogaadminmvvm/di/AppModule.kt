@@ -4,7 +4,8 @@ import android.content.Context
 import com.example.yogaadminmvvm.data.local.AppDatabase
 import com.example.yogaadminmvvm.data.local.dao.YogaClassDao
 import com.example.yogaadminmvvm.data.local.dao.YogaCourseDao
-import com.example.yogaadminmvvm.data.remote.FirebaseService // Import FirebaseService
+import com.example.yogaadminmvvm.data.remote.FirebaseService
+import com.example.yogaadminmvvm.data.remote.FirebaseYogaClass
 import com.example.yogaadminmvvm.data.repository.YogaClassRepository
 import com.example.yogaadminmvvm.data.repository.YogaClassRepositoryImpl
 import com.example.yogaadminmvvm.data.repository.YogaCourseRepository
@@ -54,6 +55,13 @@ object AppModule {
         return FirebaseService(firestore)
     }
 
+    // Provider for FirebaseService
+    @Provides
+    @Singleton
+    fun provideFirebaseYogaClass(firestore: FirebaseFirestore): FirebaseYogaClass {
+        return FirebaseYogaClass(firestore)
+    }
+
     @Provides
     @Singleton
     fun provideYogaCourseRepository(
@@ -65,8 +73,10 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideYogaClassRepository(yogaClassDao: YogaClassDao): YogaClassRepository {
-        // Assuming YogaClassRepositoryImpl does not need FirebaseService for now
-        return YogaClassRepositoryImpl(yogaClassDao)
+    fun provideYogaClassRepository(
+        yogaClassDao: YogaClassDao,
+        yogaClassFirebase: FirebaseYogaClass
+    ): YogaClassRepository {
+        return YogaClassRepositoryImpl(yogaClassDao, yogaClassFirebase)
     }
 }

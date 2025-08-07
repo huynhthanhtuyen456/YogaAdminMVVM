@@ -2,11 +2,13 @@ package com.example.yogaadminmvvm.data.repository
 
 import com.example.yogaadminmvvm.data.local.dao.YogaClassDao
 import com.example.yogaadminmvvm.data.local.entities.YogaClassEntity
+import com.example.yogaadminmvvm.data.remote.FirebaseYogaClass
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class YogaClassRepositoryImpl @Inject constructor(
-    private val yogaClassDao: YogaClassDao
+    private val yogaClassDao: YogaClassDao,
+    private val yogaClassFirebase: FirebaseYogaClass
 ) : YogaClassRepository {
 
     override fun getClassesForCourse(courseId: Int): Flow<List<YogaClassEntity>> {
@@ -18,7 +20,17 @@ class YogaClassRepositoryImpl @Inject constructor(
     }
 
     override suspend fun insertClass(yogaClass: YogaClassEntity): Long {
-        return yogaClassDao.insertInstance(yogaClass)
+
+        // `course` object here typically has id=0 (default for autoGenerate)
+        val newRowId = yogaClassDao.insertInstance(yogaClass) // newRowId is the auto-generated Int ID as Long
+
+        // Create a new YogaCourseEntity instance that includes the auto-generated ID.
+        // This is the instance we'll upload to Firebase.
+        val courseWithId = yogaClass.copy(id = newRowId.toInt())
+
+        // Upload to Firebase using the course instance that has the correct ID.
+        yogaClassFirebase.uploadYogaCourse(courseWithId)
+        return newRowId
     }
 
     override suspend fun updateClass(yogaClass: YogaClassEntity) {

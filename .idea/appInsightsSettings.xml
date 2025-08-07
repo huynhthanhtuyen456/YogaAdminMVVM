@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.yogaadminmvvm" />
+                  <option name="mobileSdkAppId" value="1:770594666098:android:5deaeae9c90fbfd07334eb" />
+                  <option name="projectId" value="yogaapp-e48da" />
+                  <option name="projectNumber" value="770594666098" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
