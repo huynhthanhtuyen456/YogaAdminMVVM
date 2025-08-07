@@ -54,7 +54,7 @@
                 android:id="@+id/buttonAdvancedSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@android:drawable/ic_menu_search"
+                android:src="@drawable/ic_filter"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="Advanced Search"
                 android:padding="8dp"/>
