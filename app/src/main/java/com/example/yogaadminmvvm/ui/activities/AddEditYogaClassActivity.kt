@@ -7,6 +7,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import com.example.yogaadminmvvm.R
 import com.example.yogaadminmvvm.data.local.entities.YogaClassEntity
@@ -44,15 +46,23 @@ class AddEditYogaClassActivity : AppCompatActivity() {
         editTextTeacherName = findViewById(R.id.editTextTeacherName)
         editTextClassComments = findViewById(R.id.editTextClassComments)
         buttonSaveClass = findViewById(R.id.buttonSaveClass)
+        // Toolbar setup
+        val toolbar: Toolbar = findViewById(R.id.toolbar_add_edit_class)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        // Set title after checking for currentCourseId
+        // Moved title setting after currentCourseId is potentially initialized
 
         currentCourseId = intent.getIntExtra(EXTRA_COURSE_ID, -1)
         courseDayOfWeekString = intent.getStringExtra(EXTRA_COURSE_DAY_OF_WEEK)
         if (intent.hasExtra(EXTRA_YOGA_CLASS_ID)) {
             currentYogaClassId = intent.getIntExtra(EXTRA_YOGA_CLASS_ID, 0)
-            title = "Edit Class"
+//            title = "Edit Class"
+            supportActionBar?.title = "Edit Course" // Set title for editing
             viewModel.loadClassDetails(currentYogaClassId!!)
         } else {
-            title = "Add Class"
+//            title = "Add Class"
+            supportActionBar?.title = "Add Course" // Set title for editing
         }
 
         if (currentCourseId == -1 || courseDayOfWeekString == null) {
@@ -66,6 +76,19 @@ class AddEditYogaClassActivity : AppCompatActivity() {
 
         buttonSaveClass.setOnClickListener {
             saveYogaClass()
+        }
+    }
+
+    // Handle Toolbar item selections
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // Respond to the action bar's Up/Home button
+                // onBackPressedDispatcher.onBackPressed() // More standard way for complex backstack
+                finish() // Simpler: just finishes the current activity
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

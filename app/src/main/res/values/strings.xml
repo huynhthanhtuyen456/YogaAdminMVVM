@@ -15,7 +15,6 @@
     <string name="add_new_yoga_class">Add new yoga class</string>
 
     <string-array name="days_of_week_array">
-        <item>Any Day</item> <!-- Added this -->
         <item>Monday</item>
         <item>Tuesday</item>
         <item>Wednesday</item>
