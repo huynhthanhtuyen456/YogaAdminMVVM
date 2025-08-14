@@ -24,6 +24,17 @@
         <item>Sunday</item>
     </string-array>
 
+    <string-array name="days_of_week_array_search">
+        <item>Any Day</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+        <item>Sunday</item>
+    </string-array>
+
     <string-array name="time_slots_array">
         <item>08:00</item>
         <item>09:00</item>
