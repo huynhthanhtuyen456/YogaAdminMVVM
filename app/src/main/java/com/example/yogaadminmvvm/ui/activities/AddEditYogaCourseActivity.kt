@@ -1,12 +1,14 @@
 package com.example.yogaadminmvvm.ui.activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.ArrayAdapter
 import android.widget.Button
-import android.widget.Spinner // Ensure Spinner is imported
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.lifecycleScope
 import com.example.yogaadminmvvm.R
 import com.example.yogaadminmvvm.data.local.entities.YogaCourseEntity
@@ -38,6 +40,11 @@ class AddEditYogaCourseActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_add_yoga_course)
 
+        // Toolbar setup
+        val toolbar: Toolbar = findViewById(R.id.toolbar_add_course)
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
         dayOfWeekSpinnerView = findViewById(R.id.dayOfWeekSpinner)
         timeSpinnerView = findViewById(R.id.timeSpinner)
         capacityEditText = findViewById(R.id.capacityEditText)
@@ -55,17 +62,38 @@ class AddEditYogaCourseActivity : AppCompatActivity() {
             currentCourseId = intent.getIntExtra(EXTRA_COURSE_ID, -1)
             if (currentCourseId != -1 && currentCourseId != 0) { // Check for valid ID
                 viewModel.loadCourseDetails(currentCourseId!!)
+                supportActionBar?.title = "Edit Course" // Set title for editing
+            } else {
+                supportActionBar?.title = "Add New Course" // Set title for adding
+                currentCourseId = null // Ensure it's null if not a valid edit ID
             }
+        } else {
+            supportActionBar?.title = "Add New Course" // Set title for adding
         }
+
 
         lifecycleScope.launch {
             viewModel.selectedCourse.collect { course ->
-                course?.let { populateForm(it) }
+                // Only populate if it's an existing course being loaded
+                if (currentCourseId != null && currentCourseId != 0) {
+                    course?.let { populateForm(it) }
+                }
             }
         }
 
         saveCourseButton.setOnClickListener {
             saveCourse()
+        }
+    }
+
+    // Handle Toolbar item selections
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish() // Simpler: just finishes the current activity
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

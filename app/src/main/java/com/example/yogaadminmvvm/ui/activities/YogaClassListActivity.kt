@@ -136,7 +136,7 @@ class YogaClassListActivity : AppCompatActivity(), YogaClassAdapter.OnClassActio
 
         val daysOfWeekAdapter = ArrayAdapter.createFromResource(
             this,
-            R.array.days_of_week_array,
+            R.array.days_of_week_array_search,
             android.R.layout.simple_spinner_item
         ).also {
             it.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
